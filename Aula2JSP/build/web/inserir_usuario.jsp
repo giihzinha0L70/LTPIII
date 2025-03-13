@@ -9,9 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Dados do Usuário</title>
     </head>
     <body>
-        <h1>Olá, <%=request.getParameter("nome")%> </h1>
+        <h1>Olá, <%= request.getParameter("nome") %>!</h1>
+
+        <p><strong>Login:</strong> <%= request.getParameter("login") %></p>
+        <p><strong>Senha:</strong> <%= request.getParameter("senha") %></p>
+
+        <!-- Link para voltar ao formulário -->
+        <p><a href="form_inserir_usuario.jsp">Voltar ao formulário</a></p>
     </body>
 </html>

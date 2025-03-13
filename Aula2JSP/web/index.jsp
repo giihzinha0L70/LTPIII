@@ -8,22 +8,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <title>Página Inicial</title>
     </head>
     <body>
-        <% String mensagem = "Bem Vindos"; %>
-        <h1><%=mensagem%></h1>
-        <%=request.getRemoteHost()%>
+        <h1>Bem-vindo à Página Inicial!</h1>
         
-        <%for(int i =1; i<7; i++){%>
-            <h<%=i%>>Olá mundo</h<%=i%>>            
-        <%}%>
+        <!-- Link para a página de inserção de usuário -->
+        <p><a href="form_inserir_usuario.jsp">Clique aqui para inserir um novo usuário</a></p>
         
-            <form action="inserir_usuario.jps" method="get">
-                <input type="text" value="Anonimo" name="nome" placeholder="Insira aqui o seu nome"/>
-                <input type="submit" value="enviar"/>       
-            </form>
-            
+        <h1>Contagem de 10 até 1</h1>
+        
+        <ul>
+            <% 
+                // Loop para realizar a contagem de 10 até 1
+                for (int i = 10; i >= 1; i--) {
+            %>
+                <li><%=i%></li>
+            <% 
+                }
+            %>
+        </ul>
+        
+        <form action="inserir_usuario.jsp" method="get">
+            <input type="text" value="Anonimo" name="nome" placeholder="Insira aqui o seu nome"/>
+            <input type="submit" value="enviar"/>
+        </form>
     </body>
 </html>
