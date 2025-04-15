@@ -9,17 +9,17 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private int nivelAcesso;
+    private int acesso;
     
     public Usuario() {
 }
     
-    public Usuario(int id, String nome, String email, String senha, int nivelAcesso){
+    public Usuario(int id, String nome, String email, String senha, int acesso){
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.nivelAcesso = nivelAcesso;
+        this.acesso = acesso;
     }
 
     public int getId() {
@@ -54,18 +54,18 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public int getNivelAcesso() {
-        return nivelAcesso;
+    public int getAcesso() {
+        return acesso;
     }
 
-    public void setNivelAcesso(int nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
+    public void setAcesso(int acesso) {
+        this.acesso = acesso;
     }
     
     @Override
     public String toString(){
         return  "Usuario{\" + \"id=\" + id + \", nome=\" + nome + \", email=\" + email + \",\n" +
-        "senha=\" + senha + \", nivelAcesso=\" + nivelAcesso + }";
+        "senha=\" + senha + \", acesso=\" + acesso + }";
     }
     
 }
