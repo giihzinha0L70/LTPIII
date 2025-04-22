@@ -63,16 +63,15 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        if (request.getParameter("action").equals("listar")) 
+        
+        if (request.getAttribute("acao").equals("deletar")){
+            System.out.println("Deletar, Usuário");
+        }
         {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> usuarios = usuarioDAO.listarTodos();
-            
-            request.setAttribute("usuarios", usuarios);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/listaUsuarios.jsp");
-            
+            List<Usuario> usuarios = usuarioDAO.listarTodos();            
+            request.setAttribute("usuarios", usuarios);            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/listaUsuarios.jsp");            
             dispatcher.forward(request, response);
     	} 
     }
