@@ -64,15 +64,30 @@ public class UsuarioController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (request.getAttribute("acao").equals("deletar")){
-            System.out.println("Deletar, Usuário");
-        }
-        {
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> usuarios = usuarioDAO.listarTodos();            
-            request.setAttribute("usuarios", usuarios);            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/listaUsuarios.jsp");            
-            dispatcher.forward(request, response);
+        UsuarioDAO udao = new UsuarioDAO();
+        
+        if ("deletar".equals(request.getParameter("action"))){
+            int id = Integer.parseInt(request.getParameter("id"));
+            udao.deletar(id);
+            response.sendRedirect("UsuarioController");
+        } else if ("alterar".equals(request.getParameter("action"))){
+            Usuario usuario = udao.buscarPorId(Integer.parseInt(request.getParameter("id")));
+            
+            request.setAttribute("usuario", usuario);
+            
+            RequestDispatcher rs = request.getRequestDispatcher("/index.jsp");
+            
+            rs.forward(request, response);
+            
+        }else{
+            
+            List lista = udao.listarTodos();
+            
+            request.setAttribute("usuarios", lista);
+            
+            RequestDispatcher rs = request.getRequestDispatcher("/listaUsuarios.jsp");
+            
+            rs.forward(request, response);
     	} 
     }
 
@@ -108,6 +123,7 @@ public class UsuarioController extends HttpServlet {
         catch (SQLException ex) {
             System.out.println(ex.getMessage());
     	}
+        
     }
 
     /**

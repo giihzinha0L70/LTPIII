@@ -55,6 +55,18 @@ public class UsuarioDAO {
     }
 
     public void deletar(int id) {
+        try (Connection conn = ConnectionFactory.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("delete from usuarios where id=?");
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+    public Usuario buscarPorId(int parseId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }

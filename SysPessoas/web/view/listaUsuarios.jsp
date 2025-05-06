@@ -42,7 +42,7 @@
                     </td>   
                     <td>
                         
-                        <button onclick="deletarusuario()">Excluir</button>   
+                        <button onclick="deletarusuario((${usuario.id})">Excluir</button>   
                         
                     </td>>    
                 </tr>
@@ -53,6 +53,11 @@
             let btnObjeto = document.getElementById("deletaButton");
             funccion deletarUsuario(){
                 let confirma = window.confirm("Deseja deletar este usuário?");
+                if(confirma){
+		window.location.href= 
+			“UsuarioController?action=deletar&id=”+id;
+	        }
+
             }
         </script>        
     </body>
