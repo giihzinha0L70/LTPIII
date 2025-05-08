@@ -64,30 +64,37 @@ public class UsuarioController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UsuarioDAO udao = new UsuarioDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
         
-        if ("deletar".equals(request.getParameter("action"))){
-            int id = Integer.parseInt(request.getParameter("id"));
-            udao.deletar(id);
+        if("deletar".equals(request.getAttribute("action"))){
+            String id = request.getParameter("id");
+            try{
+                usuarioDAO.deletar(Integer.parseInt(id));
+            } catch (SQLException ex){
+                System.out.println(ex.getMessage());
+            }
             response.sendRedirect("UsuarioController");
-        } else if ("alterar".equals(request.getParameter("action"))){
-            Usuario usuario = udao.buscarPorId(Integer.parseInt(request.getParameter("id")));
+            processRequest(request, response);
+            
+        }else if ("alterar".equals(request.getParameter("action"))) {
+            Usuario usuario
+                    = udao.buscarPorId(
+                    Integer.parseInt(request.getParameter("id")));
             
             request.setAttribute("usuario", usuario);
             
             RequestDispatcher rs = request.getRequestDispatcher("/index.jsp");
             
-            rs.forward(request, response);
+            rs.forward(request, response);        
             
         }else{
+            List<Usuario> usuarios = usuarioDAO.listarTodos(); 
             
-            List lista = udao.listarTodos();
+            request.setAttribute("usuarios", usuarios);       
             
-            request.setAttribute("usuarios", lista);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/listaUsuarios.jsp");    
             
-            RequestDispatcher rs = request.getRequestDispatcher("/listaUsuarios.jsp");
-            
-            rs.forward(request, response);
+            dispatcher.forward(request, response);
     	} 
     }
 
@@ -116,15 +123,16 @@ public class UsuarioController extends HttpServlet {
     	usuario.setAcesso(acesso);
 
         UsuarioDAO uDAO = new UsuarioDAO();
-    	try {
+        if (Integer.parseInt(request.getParameter("id")) == 0){
             uDAO.inserir(usuario);
-            System.out.println("Inserção realizada com sucesso");
-    	} 
-        catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-    	}
+        } else {
+            int id = Integer.parseInt(request.getParameter("id"));
+            usuario.setId(id);
+            uDAO.atualizar(usuario);
+        }
         
-    }
+        response.sendRedirect("./UsuarioController");
+    	}
 
     /**
      * Returns a short description of the servlet.

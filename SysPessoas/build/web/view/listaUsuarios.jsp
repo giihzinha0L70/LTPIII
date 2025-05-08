@@ -42,7 +42,7 @@
                     </td>   
                     <td>
                         
-                        <button onclick="deletarusuario((${usuario.id})">Excluir</button>   
+                        <button onclick="deletaRegistro(${usuario.id})">Excluir</button>   
                         
                     </td>>    
                 </tr>
@@ -50,15 +50,22 @@
     	</table>
         
         <script type="text/javascript">
-            let btnObjeto = document.getElementById("deletaButton");
-            funccion deletarUsuario(){
-                let confirma = window.confirm("Deseja deletar este usuário?");
-                if(confirma){
-		window.location.href= 
-			“UsuarioController?action=deletar&id=”+id;
-	        }
-
+            function deletarRegistro(id){
+                let confirma = confirm(
+                        "Deseja deletar o usuário de ID n°:" + id +"?"
+                        );
+                if(confirm){
+                    window.location.href="UsuarioController? action = deletar $id="+id;
+                }
+                
             }
-        </script>        
+            
+            function alterarUsuario(id){
+                 window.location.href =
+                         "UsuarioController?action=alterar&id="+id;
+             }
+             
+        </script>    
+        
     </body>
 </html>

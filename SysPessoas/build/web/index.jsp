@@ -18,26 +18,23 @@
     </head>
     <body>
         <h1>Cadastrar Pessoas</h1>
-          	<form method="post" action="UsuarioController">
-        	<input type="hidden" name="id" value="${usuario.id != null ? usuario.id : 0}"/>
-        	<label>Nome</label>
-        	<input type="text" name="nome" value="${usuario.nome != null ? usuario.nome : ''}"/>
-        	<br/>
-        	<label>Email</label>
-        	<input type="email" name="email" value="${usuario.email != null ? usuario.email : ''}"/>
-        	<br/>
-        	<label>Senha</label>
-        	<input type="password" name="senha" value="${usuario.senha != null ? usuario.senha : ''}"/>
-        	<br/>
-        	<label>Acesso</label>
-        	<select name="nivel">
-            	<option value="1">Admin</option>
-            	<option value="2">Usuário</option>
-        	</select>
-        	<input type="submit" value="Enviar"/>
-    	</form>
-
-    	<a href="UsuarioController?action=listar">Listar Usuarios</a>
+        <form action="UsuarioController" method="post">
+            <label>Nome: </label>
+            <input type="text" name="nome"/>
+            <br/>
+            <label>Email: </label>
+            <input type="email" name="email"/>
+            <br/>
+            <label>Senha: </label>
+            <input type="password" name="senha"/>
+            <br/>
+            <label>Acesso: </label>
+            <select name="nivel">
+            <option value="1">Admin</option>
+            <option value="2">Usuário</option>
+            </select>
+            <input type="submit" value="Enviar"/>
+        </form>
 
     </body>
 </html>

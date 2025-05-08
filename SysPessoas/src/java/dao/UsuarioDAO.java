@@ -51,22 +51,56 @@ public class UsuarioDAO {
     	}
     }
 
-    public void atualizar(Usuario usuario) {
-    }
-
-    public void deletar(int id) {
-        try (Connection conn = ConnectionFactory.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("delete from usuarios where id=?");
-            ps.setInt(1,id);
+    public void atualizar(Usuario usuario) throws SQLException {
+    	try (Connection conn = ConnectionFactory.getConnection()) {
+            String sql = "update usuarios set nome=?,"
+                    + "senha=?,acesso=?,email=? where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getSenha());
+            ps.setInt(3, usuario.getAcesso());
+            ps.setString(4, usuario.getEmail());
+            ps.setInt(5, usuario.getId());
             ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    	} catch (SQLException ex) {
+        		System.out.println(ex.getMessage());
+    	}
+    }
+    
+    public Usuario buscarPorId(int id) {
+    	Usuario usuario = null;
+    	String sql = "SELECT * FROM usuarios WHERE id = ?";
+
+    	try (Connection conexao = ConnectionFactory.getConnection();
+            	PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+        	stmt.setInt(1, id);
+        	ResultSet rs = stmt.executeQuery();
+
+        	if (rs.next()) {
+            	usuario = new Usuario();
+            	usuario.setId(rs.getInt("id"));
+            	usuario.setNome(rs.getString("nome"));
+            	usuario.setEmail(rs.getString("email"));
+            	usuario.setSenha(rs.getString("senha"));
+            	usuario.setAcesso(rs.getInt("acesso"));
+        	}
+    	} catch (SQLException e) {
+        		System.out.println(e.getMessage());
+    	}
+    	return usuario;
     }
 
-    public Usuario buscarPorId(int parseId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void deletar(int id) throws SQLException {
+        try(Connection conn = ConnectionFactory.getConnection()){
+            String sql = "delete from usuarios where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();            
+    }catch(SQLException ex){
+            System.out.println("ex.getMessage");
     }
 
-
+}
 }
