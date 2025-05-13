@@ -33,7 +33,8 @@
             <option value="1">Admin</option>
             <option value="2">Usuário</option>
             </select>
-            <input type="submit" value="Enviar"/>
+            <input type="submit" value="Cadastrar"/>
+            <a href="index.jsp">Sou novo aqui</a>
         </form>
 
     </body>

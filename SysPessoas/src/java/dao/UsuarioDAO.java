@@ -90,6 +90,20 @@ public class UsuarioDAO {
     	}
     	return usuario;
     }
+    
+    public boolean login(String email, String senha){
+        try(Connection conn = ConnectionFactory.getConnection()){
+            String sql= "select * from usuarios where email=? and senha=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, senha);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
 
 
     public void deletar(int id) throws SQLException {
